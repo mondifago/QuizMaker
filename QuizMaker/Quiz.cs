@@ -36,6 +36,30 @@ namespace QuizMaker
             CorrectAnswer = int.Parse(Console.ReadLine());
         }
 
+        public void StoreQuestionsInputted()
+        {
+
+        }
+
+        public void DisplayAllQuestionsInputted()
+        {
+
+        }
+
+        public void DisplayUserTestQuestions()
+        {
+
+        }
+
+        public void DisplayUserTestScore() { }
+
+        public void RecordUsersTestResult() { }
+
+        public void DisplayUserTestResult() { }
+
+        public void RecordUserTestHistory() { }
+
+        public void DisplayUserTestHistory() { }
     }
 }
 
