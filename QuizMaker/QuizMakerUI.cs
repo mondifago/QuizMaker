@@ -12,6 +12,27 @@ namespace QuizMaker
                 "3. View Answers to quiz\n" +
                 "4. User Score Records\n\n" +
                 "Please choose the number of the page you want to visit... ");
+
+            int page = int.Parse(Console.ReadLine());
+
+            switch (page)
+            {
+                case "1":
+                    
+                    break;
+                case "2":
+                    
+                    break;
+                case "3":
+                    
+                    break;
+                case "4":
+                    
+                    break;
+                default:
+                    Console.WriteLine("Invalid input for the correct answer. Please enter 1, 2, 3, or 4.");
+                    break;
+            }
         }
 	}
 }
