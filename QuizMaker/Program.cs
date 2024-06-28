@@ -4,19 +4,21 @@ class Program
 {
     static void Main(string[] args)
     {
-        QuizMakerUI.DiplayProgramMenu();
-
+        //QuizMakerUI.DiplayProgramMenu();
 
         Quiz quiz = new Quiz();
-
         quiz.InputQuestion();
+        Console.WriteLine("\nQuiz Details:");
+        Console.WriteLine($"Question Number: {quiz.QuestionNumber}");
+        Console.WriteLine($"Question: {quiz.Question}");
+        Console.WriteLine("Options:");
+        for (int i = 0; i < quiz.AnswerOptions.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}: {quiz.AnswerOptions[i]}");
+        }
+        Console.WriteLine($"Correct Answer: Option {quiz.CorrectAnswer}");
 
-        Console.WriteLine($"\nQuestion {quiz.QuestionNumber}: {quiz.Question}");
-        Console.WriteLine($"1. {quiz.AnswerOption1}");
-        Console.WriteLine($"2. {quiz.AnswerOption2}");
-        Console.WriteLine($"3. {quiz.AnswerOption3}");
-        Console.WriteLine($"4. {quiz.AnswerOption4}");
-        Console.WriteLine($"Correct Answer: {quiz.CorrectAnswer}");
+
 
     }
 }

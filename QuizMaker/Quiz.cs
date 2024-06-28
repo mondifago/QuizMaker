@@ -5,12 +5,13 @@ namespace QuizMaker
 	{
         public int QuestionNumber { get; private set; }
         public string Question { get; private set; }
-        public string AnswerOption1 { get; private set; }
-        public string AnswerOption2 { get; private set; }
-        public string AnswerOption3 { get; private set; }
-        public string AnswerOption4 { get; private set; }
+        public List<string> AnswerOptions { get; private set; } // Changed to List to store multiple options
         public int CorrectAnswer { get; private set; }
 
+        public Quiz()
+        {
+            AnswerOptions = new List<string>(); // Initialize the list in the constructor
+        }
 
         public void InputQuestion()
         {
@@ -20,21 +21,26 @@ namespace QuizMaker
             Console.Write("Enter the Question: ");
             Question = Console.ReadLine();
 
-            Console.Write("Enter Answer Option 1: ");
-            AnswerOption1 = Console.ReadLine();
-
-            Console.Write("Enter Answer Option 2: ");
-            AnswerOption2 = Console.ReadLine();
-
-            Console.Write("Enter Answer Option 3: ");
-            AnswerOption3 = Console.ReadLine();
-
-            Console.Write("Enter Answer Option 4: ");
-            AnswerOption4 = Console.ReadLine();
+            InputQuestionOptions();
 
             Console.Write("Enter the Correct Answer (1/2/3/4): ");
             CorrectAnswer = int.Parse(Console.ReadLine());
         }
+
+        public void InputQuestionOptions()
+        {
+            Console.Write("Enter the number of Options you want to input: ");
+            int numberOfOptions = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < numberOfOptions; i++)
+            {
+                Console.Write($"Enter Option {i + 1}: ");
+                string option = Console.ReadLine();
+                AnswerOptions.Add(option); // Add each option to the list
+                Console.WriteLine($"{i + 1}: {option}");
+            }
+        }
+
 
         public void StoreQuestionsInputted()
         {
