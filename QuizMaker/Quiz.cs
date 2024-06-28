@@ -5,12 +5,12 @@ namespace QuizMaker
 	{
         public int QuestionNumber { get; private set; }
         public string Question { get; private set; }
-        public List<string> AnswerOptions { get; private set; } // Changed to List to store multiple options
+        public List<string> AnswerOptions { get; private set; } 
         public int CorrectAnswer { get; private set; }
 
         public Quiz()
         {
-            AnswerOptions = new List<string>(); // Initialize the list in the constructor
+            AnswerOptions = new List<string>(); 
         }
 
         public void InputQuestion()
@@ -36,7 +36,7 @@ namespace QuizMaker
             {
                 Console.Write($"Enter Option {i + 1}: ");
                 string option = Console.ReadLine();
-                AnswerOptions.Add(option); // Add each option to the list
+                AnswerOptions.Add(option); 
                 Console.WriteLine($"{i + 1}: {option}");
             }
         }
