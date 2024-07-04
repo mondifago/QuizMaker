@@ -3,7 +3,15 @@ namespace QuizMaker
 {
 	public class QuizMakerUI
 	{
-        public static void DisplayProgramMenu()
+        private Quiz quiz;
+
+        public QuizMakerUI()
+        {
+            quiz = new Quiz();
+        }
+
+
+        public void DisplayProgramMenu()
         {
             Console.WriteLine("************************ Welcome to Quiz Maker *************************\n");
             Console.WriteLine("Menu:\n" +
@@ -22,8 +30,7 @@ namespace QuizMaker
                 switch (selectedOption)
                 {
                     case MenuOption.AdminLogin:
-                        Quiz quiz = new Quiz();
-                        quiz.InputQuestion();
+                        InputQuestion();
                         Console.WriteLine("\nQuiz Details:");
                         Console.WriteLine($"Question Number: {quiz.QuestionNumber}");
                         Console.WriteLine($"Question: {quiz.Question}");
@@ -61,6 +68,38 @@ namespace QuizMaker
                 Console.WriteLine("Invalid input. Please enter a number between 1 and 5.");
             }
         }
+
+        public void InputQuestion()
+        {
+            Console.Write("Enter Question Number: ");
+            int questionNumber = int.Parse(Console.ReadLine());
+            quiz.SetQuestionNumber(questionNumber);
+
+            Console.Write("Enter the Question: ");
+            string question = Console.ReadLine();
+            quiz.SetQuestion(question);
+
+            InputQuestionOptions();
+
+            Console.Write("Enter the Correct Answer (1/2/3/4): ");
+            int correctAnswer = int.Parse(Console.ReadLine());
+            quiz.SetCorrectAnswer(correctAnswer);
+        }
+
+        public void InputQuestionOptions()
+    {
+        Console.Write("Enter the number of Options you want to input: ");
+        int numberOfOptions = int.Parse(Console.ReadLine());
+
+        for (int i = 0; i < numberOfOptions; i++)
+        {
+            Console.Write($"Enter Option {i + 1}: ");
+            string option = Console.ReadLine();
+            quiz.AnswerOptions.Add(option);
+            Console.WriteLine($"{i + 1}: {option}");
+        }
+    }
+
     }
 }
 

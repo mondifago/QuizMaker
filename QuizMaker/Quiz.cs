@@ -13,33 +13,21 @@ namespace QuizMaker
             AnswerOptions = new List<string>(); 
         }
 
-        public void InputQuestion()
+        public void SetQuestionNumber(int number)
         {
-            Console.Write("Enter Question Number: ");
-            QuestionNumber = int.Parse(Console.ReadLine());
-
-            Console.Write("Enter the Question: ");
-            Question = Console.ReadLine();
-
-            InputQuestionOptions();
-
-            Console.Write("Enter the Correct Answer (1/2/3/4): ");
-            CorrectAnswer = int.Parse(Console.ReadLine());
+            QuestionNumber = number;
         }
 
-        public void InputQuestionOptions()
+        public void SetQuestion(string question)
         {
-            Console.Write("Enter the number of Options you want to input: ");
-            int numberOfOptions = int.Parse(Console.ReadLine());
-
-            for (int i = 0; i < numberOfOptions; i++)
-            {
-                Console.Write($"Enter Option {i + 1}: ");
-                string option = Console.ReadLine();
-                AnswerOptions.Add(option); 
-                Console.WriteLine($"{i + 1}: {option}");
-            }
+            Question = question;
         }
+
+        public void SetCorrectAnswer(int correctAnswer)
+        {
+            CorrectAnswer = correctAnswer;
+        }
+
 
 
         public void StoreQuestionsInputted()
