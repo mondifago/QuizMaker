@@ -4,10 +4,12 @@ namespace QuizMaker
 	public class QuizMakerUI
 	{
         private Quiz quiz;
+        private List<Quiz> quizzes;
 
-        public QuizMakerUI()
+        public QuizMakerUI(List<Quiz> quizzes)
         {
             quiz = new Quiz();
+            this.quizzes = quizzes;
         }
 
 
@@ -31,6 +33,7 @@ namespace QuizMaker
                 {
                     case MenuOption.AdminLogin:
                         InputQuestion();
+                        quizzes.Add(quiz); // Add the quiz to the list
                         Console.WriteLine("\nQuiz Details:");
                         Console.WriteLine($"Question Number: {quiz.QuestionNumber}");
                         Console.WriteLine($"Question: {quiz.Question}");

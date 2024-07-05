@@ -3,15 +3,12 @@ namespace QuizMaker
 {
 	public class Quiz
 	{
-        public int QuestionNumber { get; private set; }
-        public string Question { get; private set; }
-        public List<string> AnswerOptions { get; private set; } 
-        public int CorrectAnswer { get; private set; }
+        public int QuestionNumber { get; set; }
+        public string Question { get; set; }
+        public List<string> AnswerOptions { get; set; } 
+        public int CorrectAnswer { get; set; }
 
-        public Quiz()
-        {
-            AnswerOptions = new List<string>(); 
-        }
+        
 
         public void SetQuestionNumber(int number)
         {
@@ -23,15 +20,15 @@ namespace QuizMaker
             Question = question;
         }
 
+        public Quiz()
+        {
+            AnswerOptions = new List<string>();
+        }
+
         public void SetCorrectAnswer(int correctAnswer)
         {
             CorrectAnswer = correctAnswer;
         }
-
-
-
-        
-
         
     }
 }
