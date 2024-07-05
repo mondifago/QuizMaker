@@ -71,35 +71,64 @@ namespace QuizMaker
 
         public void InputQuestion()
         {
+            InputQuestionNumber();
+            InputQuizQuestion();
+            InputQuestionOptions();
+            InputQuestionCorrectAnswer(quiz.AnswerOptions.Count);
+        }
+
+        public void InputQuestionNumber()
+        {
             Console.Write("Enter Question Number: ");
             int questionNumber = int.Parse(Console.ReadLine());
             quiz.SetQuestionNumber(questionNumber);
+        }
 
+        public void InputQuizQuestion()
+        {
             Console.Write("Enter the Question: ");
             string question = Console.ReadLine();
             quiz.SetQuestion(question);
+        }
 
-            InputQuestionOptions();
+        public void InputQuestionOptions()
+        {
+            Console.Write("Enter the number of Options you want to input: ");
+            int numberOfOptions = int.Parse(Console.ReadLine());
 
-            Console.Write("Enter the Correct Answer (1/2/3/4): ");
+                for (int i = 0; i < numberOfOptions; i++)
+                {
+                    Console.Write($"Enter Option {i + 1}: ");
+                    string option = Console.ReadLine();
+                    quiz.AnswerOptions.Add(option);
+                    Console.WriteLine($"{i + 1}: {option}");
+                }
+        }
+
+        public void InputQuestionCorrectAnswer(int numberOfOptions)
+        {
+            Console.Write("Enter the Correct Answer (" + string.Join("/", Enumerable.Range(1, numberOfOptions)) + "): ");
             int correctAnswer = int.Parse(Console.ReadLine());
             quiz.SetCorrectAnswer(correctAnswer);
         }
 
-        public void InputQuestionOptions()
-    {
-        Console.Write("Enter the number of Options you want to input: ");
-        int numberOfOptions = int.Parse(Console.ReadLine());
-
-        for (int i = 0; i < numberOfOptions; i++)
+        public void DisplayAllQuestionsInputted()
         {
-            Console.Write($"Enter Option {i + 1}: ");
-            string option = Console.ReadLine();
-            quiz.AnswerOptions.Add(option);
-            Console.WriteLine($"{i + 1}: {option}");
-        }
-    }
 
+        }
+
+        public void DisplayUserTestQuestions()
+        {
+
+        }
+
+        public void DisplayUserTestScore() { }
+
+        public void DisplayUserTestResult() { }
+
+        public void RecordUserTestHistory() { }
+
+        public void DisplayUserTestHistory() { }
     }
 }
 

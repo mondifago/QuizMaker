@@ -1,4 +1,6 @@
-﻿namespace QuizMaker;
+﻿using System.Xml.Serialization;
+
+namespace QuizMaker;
 
 class Program
 {
@@ -6,7 +8,7 @@ class Program
     {
         QuizMakerUI quizMakerUI = new QuizMakerUI();
         quizMakerUI.DisplayProgramMenu();
-
+        //XmlSerializer writer = new XmlSerializer();
     }
 }
 
