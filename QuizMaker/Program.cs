@@ -12,7 +12,7 @@ class Program
         quizMakerUI.DisplayProgramMenu();
 
         XmlSerializer writer = new XmlSerializer(typeof(List<Quiz>));
-        var path = @"/Users/ugochukwumaduakor/Projects/QuizMaker/QuizMaker/bin/Debug/net7.0/Quizlist.xml";
+        var path = @"../../../Quizlist.xml";
 
         using (FileStream file = File.Create(path))
         {

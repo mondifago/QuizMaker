@@ -8,8 +8,6 @@ namespace QuizMaker
         public List<string> AnswerOptions { get; set; } 
         public int CorrectAnswer { get; set; }
 
-        
-
         public void SetQuestionNumber(int number)
         {
             QuestionNumber = number;

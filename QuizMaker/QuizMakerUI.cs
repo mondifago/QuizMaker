@@ -3,15 +3,12 @@ namespace QuizMaker
 {
 	public class QuizMakerUI
 	{
-        private Quiz quiz;
         private List<Quiz> quizzes;
 
         public QuizMakerUI(List<Quiz> quizzes)
         {
-            quiz = new Quiz();
             this.quizzes = quizzes;
         }
-
 
         public void DisplayProgramMenu()
         {
@@ -32,17 +29,7 @@ namespace QuizMaker
                 switch (selectedOption)
                 {
                     case MenuOption.AdminLogin:
-                        InputQuestion();
-                        quizzes.Add(quiz); // Add the quiz to the list
-                        Console.WriteLine("\nQuiz Details:");
-                        Console.WriteLine($"Question Number: {quiz.QuestionNumber}");
-                        Console.WriteLine($"Question: {quiz.Question}");
-                        Console.WriteLine("Options:");
-                        for (int i = 0; i < quiz.AnswerOptions.Count; i++)
-                        {
-                            Console.WriteLine($"{i + 1}: {quiz.AnswerOptions[i]}");
-                        }
-                        Console.WriteLine($"Correct Answer: Option {quiz.CorrectAnswer}");
+                        AddMultipleQuestions();
                         break;
 
                     case MenuOption.AdminViewAllQuestions:
@@ -72,45 +59,69 @@ namespace QuizMaker
             }
         }
 
-        public void InputQuestion()
+        public void AddMultipleQuestions()
         {
-            InputQuestionNumber();
-            InputQuizQuestion();
-            InputQuestionOptions();
-            InputQuestionCorrectAnswer(quiz.AnswerOptions.Count);
+            Console.Write("How many questions would you like to add? ");
+            int numberOfQuestions = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < numberOfQuestions; i++)
+            {
+                Console.WriteLine($"\nAdding Question {i + 1} of {numberOfQuestions}");
+
+                Quiz quiz = new Quiz();
+                InputQuestionNumber(quiz);
+                InputQuizQuestion(quiz);
+                InputQuestionOptions(quiz);
+                InputQuestionCorrectAnswer(quiz);
+
+                quizzes.Add(quiz);
+
+                Console.WriteLine("\nQuiz Details:");
+                Console.WriteLine($"Question Number: {quiz.QuestionNumber}");
+                Console.WriteLine($"Question: {quiz.Question}");
+                Console.WriteLine("Options:");
+                for (int j = 0; j < quiz.AnswerOptions.Count; j++)
+                {
+                    Console.WriteLine($"{j + 1}: {quiz.AnswerOptions[j]}");
+                }
+                Console.WriteLine($"Correct Answer: Option {quiz.CorrectAnswer}\n");
+                Console.WriteLine("Review the question and press any key to continue...");
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
 
-        public void InputQuestionNumber()
+        public void InputQuestionNumber(Quiz quiz)
         {
             Console.Write("Enter Question Number: ");
             int questionNumber = int.Parse(Console.ReadLine());
             quiz.SetQuestionNumber(questionNumber);
         }
 
-        public void InputQuizQuestion()
+        public void InputQuizQuestion(Quiz quiz)
         {
             Console.Write("Enter the Question: ");
             string question = Console.ReadLine();
             quiz.SetQuestion(question);
         }
 
-        public void InputQuestionOptions()
+        public void InputQuestionOptions(Quiz quiz)
         {
             Console.Write("Enter the number of Options you want to input: ");
             int numberOfOptions = int.Parse(Console.ReadLine());
 
-                for (int i = 0; i < numberOfOptions; i++)
-                {
-                    Console.Write($"Enter Option {i + 1}: ");
-                    string option = Console.ReadLine();
-                    quiz.AnswerOptions.Add(option);
-                    Console.WriteLine($"{i + 1}: {option}");
-                }
+            for (int i = 0; i < numberOfOptions; i++)
+            {
+                Console.Write($"Enter Option {i + 1}: ");
+                string option = Console.ReadLine();
+                quiz.AnswerOptions.Add(option);
+                Console.WriteLine($"{i + 1}: {option}");
+            }
         }
 
-        public void InputQuestionCorrectAnswer(int numberOfOptions)
+        public void InputQuestionCorrectAnswer(Quiz quiz)
         {
-            Console.Write("Enter the Correct Answer (" + string.Join("/", Enumerable.Range(1, numberOfOptions)) + "): ");
+            Console.Write("Enter the Correct Answer (" + string.Join("/", Enumerable.Range(1, quiz.AnswerOptions.Count)) + "): ");
             int correctAnswer = int.Parse(Console.ReadLine());
             quiz.SetCorrectAnswer(correctAnswer);
         }

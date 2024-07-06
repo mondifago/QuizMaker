@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfQuiz xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Quiz>
+    <QuestionNumber>1</QuestionNumber>
+    <Question>what ismy mother's name</Question>
+    <AnswerOptions>
+      <string>jane</string>
+      <string>mary</string>
+      <string>susan</string>
+    </AnswerOptions>
+    <CorrectAnswer>2</CorrectAnswer>
+  </Quiz>
+  <Quiz>
+    <QuestionNumber>2</QuestionNumber>
+    <Question>what is the name of my father</Question>
+    <AnswerOptions>
+      <string>john</string>
+      <string>jack</string>
+      <string>julius</string>
+    </AnswerOptions>
+    <CorrectAnswer>1</CorrectAnswer>
+  </Quiz>
+</ArrayOfQuiz>
