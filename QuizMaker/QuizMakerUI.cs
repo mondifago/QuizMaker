@@ -18,7 +18,8 @@ namespace QuizMaker
                               "2. Admin View All Questions\n" +
                               "3. User Login\n" +
                               "4. View Answers to quiz\n" +
-                              "5. User Score Records\n\n");
+                              "5. User Score Records\n" +
+                              "6. Exit program\n\n");
             Console.Write("Please choose the number of the page you want to visit... ");
 
             int mode;
@@ -45,6 +46,10 @@ namespace QuizMaker
                         break;
 
                     case MenuOption.UserScoreRecords:
+                        // User score records logic here
+                        break;
+
+                    case MenuOption.ExitProgram:
                         // User score records logic here
                         break;
 
