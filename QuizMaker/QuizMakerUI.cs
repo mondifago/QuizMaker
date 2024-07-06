@@ -12,6 +12,7 @@ namespace QuizMaker
 
         public void DisplayProgramMenu()
         {
+            Console.Clear();
             Console.WriteLine("************************ Welcome to Quiz Maker *************************\n");
             Console.WriteLine("Menu:\n" +
                               "1. Admin Login\n" +
@@ -57,10 +58,12 @@ namespace QuizMaker
                         Console.WriteLine("Invalid input for the correct answer. Please enter a valid option.");
                         break;
                 }
+                DisplayProgramMenu();
             }
             else
             {
-                Console.WriteLine("Invalid input. Please enter a number between 1 and 5.");
+                Console.WriteLine("Invalid input. Please enter a number between 1 and 6.");
+                DisplayProgramMenu();
             }
         }
 
@@ -68,6 +71,8 @@ namespace QuizMaker
         {
             Console.Write("How many questions would you like to add? ");
             int numberOfQuestions = int.Parse(Console.ReadLine());
+
+            
 
             for (int i = 0; i < numberOfQuestions; i++)
             {
@@ -93,7 +98,12 @@ namespace QuizMaker
                 Console.WriteLine("Review the question and press any key to continue...");
                 Console.ReadKey();
                 Console.Clear();
+
             }
+            Console.WriteLine("All questions have been added. Press any key to return to the main menu...");
+            Console.ReadKey();
+            DisplayProgramMenu(); // Return to the main menu after adding questions
+
         }
 
         public void InputQuestionNumber(Quiz quiz)

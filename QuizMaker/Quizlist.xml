@@ -2,22 +2,22 @@
 <ArrayOfQuiz xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Quiz>
     <QuestionNumber>1</QuestionNumber>
-    <Question>what ismy mother's name</Question>
+    <Question>what is my name</Question>
     <AnswerOptions>
-      <string>jane</string>
-      <string>mary</string>
-      <string>susan</string>
+      <string>way</string>
+      <string>era</string>
+      <string>ugo</string>
     </AnswerOptions>
-    <CorrectAnswer>2</CorrectAnswer>
+    <CorrectAnswer>3</CorrectAnswer>
   </Quiz>
   <Quiz>
     <QuestionNumber>2</QuestionNumber>
-    <Question>what is the name of my father</Question>
+    <Question>what is the name of my dog</Question>
     <AnswerOptions>
-      <string>john</string>
-      <string>jack</string>
-      <string>julius</string>
+      <string>woc</string>
+      <string>sal</string>
+      <string>kite</string>
     </AnswerOptions>
-    <CorrectAnswer>1</CorrectAnswer>
+    <CorrectAnswer>3</CorrectAnswer>
   </Quiz>
 </ArrayOfQuiz>
