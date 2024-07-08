@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
+
 namespace QuizMaker
 {
-	public class QuizMakerUI
-	{
+    public class QuizMakerUI
+    {
         private List<Quiz> quizzes;
+        private string path = @"../../../Quizlist.xml";
 
         public QuizMakerUI(List<Quiz> quizzes)
         {
@@ -35,7 +40,7 @@ namespace QuizMaker
                         break;
 
                     case MenuOption.AdminViewAllQuestions:
-                        //quiz.DisplayAllQuestionsInputted();
+                        DisplayAllQuestionsInputted();
                         break;
 
                     case MenuOption.UserLogin:
@@ -51,7 +56,7 @@ namespace QuizMaker
                         break;
 
                     case MenuOption.ExitProgram:
-                        // User score records logic here
+                        // Exit program logic here
                         break;
 
                     default:
@@ -71,8 +76,6 @@ namespace QuizMaker
         {
             Console.Write("How many questions would you like to add? ");
             int numberOfQuestions = int.Parse(Console.ReadLine());
-
-            
 
             for (int i = 0; i < numberOfQuestions; i++)
             {
@@ -98,12 +101,18 @@ namespace QuizMaker
                 Console.WriteLine("Review the question and press any key to continue...");
                 Console.ReadKey();
                 Console.Clear();
-
             }
+
+            // Serialize quizzes to XML
+            XmlSerializer writer = new XmlSerializer(typeof(List<Quiz>));
+            using (FileStream file = File.Create(path))
+            {
+                writer.Serialize(file, quizzes);
+            }
+
             Console.WriteLine("All questions have been added. Press any key to return to the main menu...");
             Console.ReadKey();
             DisplayProgramMenu(); // Return to the main menu after adding questions
-
         }
 
         public void InputQuestionNumber(Quiz quiz)
@@ -143,13 +152,35 @@ namespace QuizMaker
 
         public void DisplayAllQuestionsInputted()
         {
+            // Deserialize quizzes from XML
+            XmlSerializer reader = new XmlSerializer(typeof(List<Quiz>));
+            using (FileStream file = File.OpenRead(path))
+            {
+                quizzes = reader.Deserialize(file) as List<Quiz>;
+            }
 
+            Console.Clear();
+            Console.WriteLine("********************* All Questions Inputted *********************\n");
+
+            foreach (var quiz in quizzes)
+            {
+                Console.WriteLine($"Question Number: {quiz.QuestionNumber}");
+                Console.WriteLine($"Question: {quiz.Question}");
+                Console.WriteLine("Options:");
+                for (int i = 0; i < quiz.AnswerOptions.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}: {quiz.AnswerOptions[i]}");
+                }
+                Console.WriteLine($"Correct Answer: Option {quiz.CorrectAnswer}\n");
+                Console.WriteLine("----------------------------------------------------------\n");
+            }
+
+            Console.WriteLine("Press any key to return to the main menu...");
+            Console.ReadKey();
+            DisplayProgramMenu(); // Return to the main menu after displaying questions
         }
 
-        public void DisplayUserTestQuestions()
-        {
-
-        }
+        public void DisplayUserTestQuestions() { }
 
         public void DisplayUserTestScore() { }
 
@@ -159,5 +190,6 @@ namespace QuizMaker
 
         public void DisplayUserTestHistory() { }
     }
-}
 
+    
+}
