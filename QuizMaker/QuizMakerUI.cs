@@ -9,6 +9,7 @@ namespace QuizMaker
     {
         private List<Quiz> quizzes;
         private string path = @"../../../Quizlist.xml";
+        private bool exitProgram = false;
 
         public QuizMakerUI(List<Quiz> quizzes)
         {
@@ -17,58 +18,59 @@ namespace QuizMaker
 
         public void DisplayProgramMenu()
         {
-            Console.Clear();
-            Console.WriteLine("************************ Welcome to Quiz Maker *************************\n");
-            Console.WriteLine("Menu:\n" +
-                              "1. Admin Login\n" +
-                              "2. Admin View All Questions\n" +
-                              "3. User Login\n" +
-                              "4. View Answers to quiz\n" +
-                              "5. User Score Records\n" +
-                              "6. Exit program\n\n");
-            Console.Write("Please choose the number of the page you want to visit... ");
-
-            int mode;
-            if (int.TryParse(Console.ReadLine(), out mode) && Enum.IsDefined(typeof(MenuOption), mode))
+            while (!exitProgram)
             {
-                MenuOption selectedOption = (MenuOption)mode;
+                Console.Clear();
+                Console.WriteLine("************************ Welcome to Quiz Maker *************************\n");
+                Console.WriteLine("Menu:\n" +
+                                  "1. Admin Login\n" +
+                                  "2. Admin View All Questions\n" +
+                                  "3. User Login\n" +
+                                  "4. View Answers to quiz\n" +
+                                  "5. User Score Records\n" +
+                                  "6. Exit program\n\n");
+                Console.Write("Please choose the number of the page you want to visit... ");
 
-                switch (selectedOption)
+                int mode;
+                if (int.TryParse(Console.ReadLine(), out mode) && Enum.IsDefined(typeof(MenuOption), mode))
                 {
-                    case MenuOption.AdminLogin:
-                        AddMultipleQuestions();
-                        break;
+                    MenuOption selectedOption = (MenuOption)mode;
 
-                    case MenuOption.AdminViewAllQuestions:
-                        DisplayAllQuestionsInputted();
-                        break;
+                    switch (selectedOption)
+                    {
+                        case MenuOption.AdminLogin:
+                            AddMultipleQuestions();
+                            break;
 
-                    case MenuOption.UserLogin:
-                        // User login logic here
-                        break;
+                        case MenuOption.AdminViewAllQuestions:
+                            DisplayAllQuestionsInputted();
+                            break;
 
-                    case MenuOption.ViewAnswersToQuiz:
-                        // View answers to quiz logic here
-                        break;
+                        case MenuOption.UserLogin:
+                            // User login logic here
+                            break;
 
-                    case MenuOption.UserScoreRecords:
-                        // User score records logic here
-                        break;
+                        case MenuOption.ViewAnswersToQuiz:
+                            // View answers to quiz logic here
+                            break;
 
-                    case MenuOption.ExitProgram:
-                        // Exit program logic here
-                        break;
+                        case MenuOption.UserScoreRecords:
+                            // User score records logic here
+                            break;
 
-                    default:
-                        Console.WriteLine("Invalid input for the correct answer. Please enter a valid option.");
-                        break;
+                        case MenuOption.ExitProgram:
+                            ExitProgram();
+                            break;
+
+                        default:
+                            Console.WriteLine("Invalid input for the correct answer. Please enter a valid option.");
+                            break;
+                    }
                 }
-                DisplayProgramMenu();
-            }
-            else
-            {
-                Console.WriteLine("Invalid input. Please enter a number between 1 and 6.");
-                DisplayProgramMenu();
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a number between 1 and 6.");
+                }
             }
         }
 
@@ -189,6 +191,19 @@ namespace QuizMaker
         public void RecordUserTestHistory() { }
 
         public void DisplayUserTestHistory() { }
+
+        private void ExitProgram()
+        {
+            // Serialize quizzes to XML
+            XmlSerializer writer = new XmlSerializer(typeof(List<Quiz>));
+            using (FileStream file = File.Create(path))
+            {
+                writer.Serialize(file, quizzes);
+            }
+
+            Console.WriteLine("Quizzes have been saved. Exiting the program...");
+            exitProgram = true; // Set the flag to exit the menu loop
+        }
     }
 
     

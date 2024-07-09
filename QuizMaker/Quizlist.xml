@@ -20,4 +20,34 @@
     </AnswerOptions>
     <CorrectAnswer>3</CorrectAnswer>
   </Quiz>
+  <Quiz>
+    <QuestionNumber>1</QuestionNumber>
+    <Question>which of these is not a weekday</Question>
+    <AnswerOptions>
+      <string>monday</string>
+      <string>sunday</string>
+      <string>friday</string>
+    </AnswerOptions>
+    <CorrectAnswer>2</CorrectAnswer>
+  </Quiz>
+  <Quiz>
+    <QuestionNumber>2</QuestionNumber>
+    <Question>days of the week can be checked from a ?</Question>
+    <AnswerOptions>
+      <string>calender</string>
+      <string>dairy</string>
+      <string>magazine</string>
+    </AnswerOptions>
+    <CorrectAnswer>1</CorrectAnswer>
+  </Quiz>
+  <Quiz>
+    <QuestionNumber>3</QuestionNumber>
+    <Question>which of these is not a domestic animal</Question>
+    <AnswerOptions>
+      <string>dog</string>
+      <string>cat</string>
+      <string>lion</string>
+    </AnswerOptions>
+    <CorrectAnswer>3</CorrectAnswer>
+  </Quiz>
 </ArrayOfQuiz>
