@@ -8,12 +8,13 @@ namespace QuizMaker
     public class QuizMakerUI
     {
         private List<Quiz> quizzes;
-        private string path = @"../../../Quizlist.xml";
+        private QuizMakerLogic quizMakerLogic;
         private bool exitProgram = false;
 
-        public QuizMakerUI(List<Quiz> quizzes)
+        public QuizMakerUI(List<Quiz> quizzes, QuizMakerLogic quizMakerLogic)
         {
             this.quizzes = quizzes;
+            this.quizMakerLogic = quizMakerLogic;
         }
 
         public void DisplayProgramMenu()
@@ -82,7 +83,7 @@ namespace QuizMaker
             for (int i = 0; i < numberOfQuestions; i++)
             {
                 Console.WriteLine($"\nAdding Question {i + 1} of {numberOfQuestions}");
-
+                
                 Quiz quiz = new Quiz();
                 InputQuestionNumber(quiz);
                 InputQuizQuestion(quiz);
@@ -106,11 +107,7 @@ namespace QuizMaker
             }
 
             // Serialize quizzes to XML
-            XmlSerializer writer = new XmlSerializer(typeof(List<Quiz>));
-            using (FileStream file = File.Create(path))
-            {
-                writer.Serialize(file, quizzes);
-            }
+            quizMakerLogic.StoreInputtedQuestions();
 
             Console.WriteLine("All questions have been added. Press any key to return to the main menu...");
             Console.ReadKey();
@@ -155,11 +152,7 @@ namespace QuizMaker
         public void DisplayAllQuestionsInputted()
         {
             // Deserialize quizzes from XML
-            XmlSerializer reader = new XmlSerializer(typeof(List<Quiz>));
-            using (FileStream file = File.OpenRead(path))
-            {
-                quizzes = reader.Deserialize(file) as List<Quiz>;
-            }
+            quizMakerLogic.FetchInputtedQuestions();
 
             Console.Clear();
             Console.WriteLine("********************* All Questions Inputted *********************\n");
@@ -179,7 +172,7 @@ namespace QuizMaker
 
             Console.WriteLine("Press any key to return to the main menu...");
             Console.ReadKey();
-            DisplayProgramMenu(); // Return to the main menu after displaying questions
+            DisplayProgramMenu(); 
         }
 
         public void DisplayUserTestQuestions() { }
@@ -194,15 +187,9 @@ namespace QuizMaker
 
         private void ExitProgram()
         {
-            // Serialize quizzes to XML
-            XmlSerializer writer = new XmlSerializer(typeof(List<Quiz>));
-            using (FileStream file = File.Create(path))
-            {
-                writer.Serialize(file, quizzes);
-            }
-
+            quizMakerLogic.StoreInputtedQuestions();
             Console.WriteLine("Quizzes have been saved. Exiting the program...");
-            exitProgram = true; // Set the flag to exit the menu loop
+            exitProgram = true; 
         }
     }
 
