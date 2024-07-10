@@ -48,7 +48,7 @@ namespace QuizMaker
                             break;
 
                         case MenuOption.UserLogin:
-                            // User login logic here
+                            DisplayUserTestQuestions();
                             break;
 
                         case MenuOption.ViewAnswersToQuiz:
@@ -175,7 +175,47 @@ namespace QuizMaker
             DisplayProgramMenu(); 
         }
 
-        public void DisplayUserTestQuestions() { }
+        public void DisplayUserTestQuestions()
+        {
+            quizMakerLogic.FetchInputtedQuestions();
+            int correct = 0;
+            int incorrect = 0;
+
+            Console.Clear();
+            Console.WriteLine("********************* Welcome To General IQ Quiz *********************\n");
+            Console.WriteLine("Quiz Instruction: This Quiz contains 5 Questions, you need to answer 4 correctly to pass.");
+            Console.WriteLine("This is a multiple choice answer quiz, select the correct option number from the options");
+            Console.WriteLine("When you are ready, Press ENTER to start.... ");
+            Console.ReadKey();
+            Console.Clear();
+
+            foreach (var quiz in quizzes)
+            {
+                Console.WriteLine($"Question Number: {quiz.QuestionNumber}");
+                Console.WriteLine($"Question: {quiz.Question}");
+                Console.WriteLine("Options:");
+                for (int i = 0; i < quiz.AnswerOptions.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}: {quiz.AnswerOptions[i]}");
+                }
+                Console.Write("Enter the Correct Answer (" + string.Join("/", Enumerable.Range(1, quiz.AnswerOptions.Count)) + "): ");
+                int userAnswer = int.Parse(Console.ReadLine());
+                
+                if (userAnswer == quiz.CorrectAnswer)
+                {
+                    Console.WriteLine("CORRECT!!!");
+                    quiz.QuestionNumber = correct;
+                    correct++;
+                }
+                else
+                {
+                    Console.WriteLine("INCORRECT");
+                    quiz.QuestionNumber = incorrect;
+                    incorrect++;
+
+                }
+            }
+        }
 
         public void DisplayUserTestScore() { }
 
