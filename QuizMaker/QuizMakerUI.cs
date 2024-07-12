@@ -180,50 +180,67 @@ namespace QuizMaker
             quizMakerLogic.FetchInputtedQuestions();
             int correct = 0;
             int incorrect = 0;
+            int NumberQuestionsPerSession = 5;
 
             Console.Clear();
             Console.WriteLine("********************* Welcome To General IQ Quiz *********************\n");
             Console.WriteLine("Quiz Instruction: This Quiz contains 5 Questions, you need to answer 4 correctly to pass.");
-            Console.WriteLine("This is a multiple choice answer quiz, select the correct option number from the options");
+            Console.WriteLine("This is a multiple choice answer quiz, select the correct option number from the options\n");
             Console.WriteLine("When you are ready, Press ENTER to start.... ");
             Console.ReadKey();
             Console.Clear();
 
-            foreach (var quiz in quizzes)
+            var random = new Random();
+            var selectedQuestions = quizzes.OrderBy(x => random.Next()).Take(NumberQuestionsPerSession).ToList();
+
+            foreach (var quiz in selectedQuestions)
             {
                 Console.WriteLine($"Question Number: {quiz.QuestionNumber}");
                 Console.WriteLine($"Question: {quiz.Question}");
                 Console.WriteLine("Options:");
-                for (int i = 0; i < quiz.AnswerOptions.Count; i++)
+                for (int j = 0; j < quiz.AnswerOptions.Count; j++)
                 {
-                    Console.WriteLine($"{i + 1}: {quiz.AnswerOptions[i]}");
+                    Console.WriteLine($"{j + 1}: {quiz.AnswerOptions[j]}");
                 }
                 Console.Write("Enter the Correct Answer (" + string.Join("/", Enumerable.Range(1, quiz.AnswerOptions.Count)) + "): ");
                 int userAnswer = int.Parse(Console.ReadLine());
-                
+
                 if (userAnswer == quiz.CorrectAnswer)
                 {
                     Console.WriteLine("CORRECT!!!");
-                    quiz.QuestionNumber = correct;
                     correct++;
                 }
                 else
                 {
                     Console.WriteLine("INCORRECT");
-                    quiz.QuestionNumber = incorrect;
                     incorrect++;
-
                 }
+
+                Console.WriteLine("Press ENTER to continue to the next question...");
+                Console.ReadKey();
+                Console.Clear();
             }
+
+            Console.WriteLine("Quiz completed!");
+            Console.WriteLine($"You answered {correct} questions correctly and {incorrect} questions incorrectly.");
+            if (correct >= 4)
+            {
+                Console.WriteLine("Congratulations, you passed the quiz!");
+            }
+            else
+            {
+                Console.WriteLine("Sorry, you did not pass the quiz. Better luck next time!");
+            }
+
+            Console.WriteLine("Press any key to return to the main menu...");
+            Console.ReadKey();
+            DisplayProgramMenu(); 
         }
+
 
         public void DisplayUserTestScore() { }
 
         public void DisplayUserTestResult() { }
-
-        public void RecordUserTestHistory() { }
-
-        public void DisplayUserTestHistory() { }
 
         private void ExitProgram()
         {
