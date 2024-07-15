@@ -29,7 +29,7 @@ namespace QuizMaker
                 Console.WriteLine("Menu:\n" +
                                   "1. Admin Login\n" +
                                   "2. Admin View All Questions\n" +
-                                  "3. User Login\n" +
+                                  "3. Take Quiz\n" +
                                   "4. View Answers to quiz\n" +
                                   "5. Exit program\n\n");
                 Console.Write("Please choose the number of the page you want to visit... ");
@@ -204,10 +204,10 @@ namespace QuizMaker
         public void DisplayUserQuizScore()
         {
             Console.WriteLine("Quiz completed!");
-            Console.WriteLine($"You answered {correct} questions correctly and {incorrect} questions incorrectly.");
+            Console.WriteLine($"Your Score is {correct} / {QuizMakerConstants.NUMBER_OF_QUESTIONS_PER_SESSION}\n");
             if (correct >= QuizMakerConstants.PASS_SCORE)
             {
-                Console.WriteLine("Congratulations, you passed the quiz!");
+                Console.WriteLine("CONGRATULATIONS!!, you passed the quiz!");
             }
             else
             {
@@ -246,7 +246,28 @@ namespace QuizMaker
             }
         }
 
-        public void DisplayUserTestResult() { }
+        public void DisplayUserTestResult()
+        {
+            Console.Clear();
+            Console.WriteLine("********************* User Quiz Answers *********************\n");
+
+            var selectedQuestions = quizMakerLogic.RandomlySelectQuizQuestions();
+
+            for (int i = 0; i < selectedQuestions.Count; i++)
+            {
+                var quiz = selectedQuestions[i];
+                int userAnswer = quizMakerLogic.userAnswerList[i];
+
+                DisplayQuizQuestionsAndAnswerOptions(quiz);
+                Console.WriteLine($"Correct Answer: Option {quiz.CorrectAnswer}");
+                Console.WriteLine($"Your Answer: Option {userAnswer}\n");
+                Console.WriteLine("----------------------------------------------------------\n");
+            }
+            Console.WriteLine("Press any key to return to the main menu...");
+            Console.ReadKey();
+            DisplayProgramMenu(); 
+        }
+
 
         private void ExitProgram()
         {
