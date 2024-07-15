@@ -10,11 +10,14 @@ namespace QuizMaker
         private List<Quiz> quizzes;
         private QuizMakerLogic quizMakerLogic;
         private bool exitProgram = false;
+        public int correct;
+        public int incorrect;
 
         public QuizMakerUI(List<Quiz> quizzes, QuizMakerLogic quizMakerLogic)
         {
             this.quizzes = quizzes;
             this.quizMakerLogic = quizMakerLogic;
+                  
         }
 
         public void DisplayProgramMenu()
@@ -105,13 +108,11 @@ namespace QuizMaker
                 Console.ReadKey();
                 Console.Clear();
             }
-
-            // Serialize quizzes to XML
             quizMakerLogic.StoreInputtedQuestions();
 
             Console.WriteLine("All questions have been added. Press any key to return to the main menu...");
             Console.ReadKey();
-            DisplayProgramMenu(); // Return to the main menu after adding questions
+            DisplayProgramMenu(); 
         }
 
         public void InputQuestionNumber(Quiz quiz)
@@ -151,25 +152,16 @@ namespace QuizMaker
 
         public void DisplayAllQuestionsInputted()
         {
-            // Deserialize quizzes from XML
             quizMakerLogic.FetchInputtedQuestions();
-
             Console.Clear();
             Console.WriteLine("********************* All Questions Inputted *********************\n");
 
             foreach (var quiz in quizzes)
             {
-                Console.WriteLine($"Question Number: {quiz.QuestionNumber}");
-                Console.WriteLine($"Question: {quiz.Question}");
-                Console.WriteLine("Options:");
-                for (int i = 0; i < quiz.AnswerOptions.Count; i++)
-                {
-                    Console.WriteLine($"{i + 1}: {quiz.AnswerOptions[i]}");
-                }
+                DisplayQuizQuestionsAndAnswerOptions(quiz);
                 Console.WriteLine($"Correct Answer: Option {quiz.CorrectAnswer}\n");
                 Console.WriteLine("----------------------------------------------------------\n");
             }
-
             Console.WriteLine("Press any key to return to the main menu...");
             Console.ReadKey();
             DisplayProgramMenu(); 
@@ -178,52 +170,45 @@ namespace QuizMaker
         public void DisplayUserTestQuestions()
         {
             quizMakerLogic.FetchInputtedQuestions();
-            int correct = 0;
-            int incorrect = 0;
-            int NumberQuestionsPerSession = 5;
-
+            correct = 0;
+            incorrect = 0;
+            
             Console.Clear();
-            Console.WriteLine("********************* Welcome To General IQ Quiz *********************\n");
-            Console.WriteLine("Quiz Instruction: This Quiz contains 5 Questions, you need to answer 4 correctly to pass.");
-            Console.WriteLine("This is a multiple choice answer quiz, select the correct option number from the options\n");
-            Console.WriteLine("When you are ready, Press ENTER to start.... ");
+            DisplayQuizInstructions();
             Console.ReadKey();
             Console.Clear();
 
-            var random = new Random();
-            var selectedQuestions = quizzes.OrderBy(x => random.Next()).Take(NumberQuestionsPerSession).ToList();
+            var selectedQuestions = quizMakerLogic.RandomlySelectQuizQuestions();
 
             foreach (var quiz in selectedQuestions)
             {
-                Console.WriteLine($"Question Number: {quiz.QuestionNumber}");
-                Console.WriteLine($"Question: {quiz.Question}");
-                Console.WriteLine("Options:");
-                for (int j = 0; j < quiz.AnswerOptions.Count; j++)
-                {
-                    Console.WriteLine($"{j + 1}: {quiz.AnswerOptions[j]}");
-                }
-                Console.Write("Enter the Correct Answer (" + string.Join("/", Enumerable.Range(1, quiz.AnswerOptions.Count)) + "): ");
-                int userAnswer = int.Parse(Console.ReadLine());
-
-                if (userAnswer == quiz.CorrectAnswer)
-                {
-                    Console.WriteLine("CORRECT!!!");
-                    correct++;
-                }
-                else
-                {
-                    Console.WriteLine("INCORRECT");
-                    incorrect++;
-                }
-
+                DisplayQuizQuestionsAndAnswerOptions(quiz);
+                int userAnswer = PromptUserToInputAnswer(quiz);
+                ValidateAndDisplayUserAnswer(quiz, userAnswer);
                 Console.WriteLine("Press ENTER to continue to the next question...");
                 Console.ReadKey();
                 Console.Clear();
             }
 
+            DisplayUserQuizScore();
+            Console.WriteLine("Press any key to return to the main menu...");
+            Console.ReadKey();
+            DisplayProgramMenu(); 
+        }
+
+        public void DisplayQuizInstructions()
+        {
+            Console.WriteLine("********************* Welcome To General IQ Quiz *********************\n");
+            Console.WriteLine("Quiz Instruction: This Quiz contains 5 Questions, you need to answer 4 correctly to pass.");
+            Console.WriteLine("This is a multiple choice answer quiz, select the correct option number from the options\n");
+            Console.WriteLine("When you are ready, Press ENTER to start.... ");
+        }
+
+        public void DisplayUserQuizScore()
+        {
             Console.WriteLine("Quiz completed!");
             Console.WriteLine($"You answered {correct} questions correctly and {incorrect} questions incorrectly.");
-            if (correct >= 4)
+            if (correct >= QuizMakerConstants.PASS_SCORE)
             {
                 Console.WriteLine("Congratulations, you passed the quiz!");
             }
@@ -231,14 +216,38 @@ namespace QuizMaker
             {
                 Console.WriteLine("Sorry, you did not pass the quiz. Better luck next time!");
             }
-
-            Console.WriteLine("Press any key to return to the main menu...");
-            Console.ReadKey();
-            DisplayProgramMenu(); 
         }
 
+        public void DisplayQuizQuestionsAndAnswerOptions(Quiz quiz)
+        {
+            Console.WriteLine($"Question Number: {quiz.QuestionNumber}");
+            Console.WriteLine($"Question: {quiz.Question}");
+            Console.WriteLine("Options:");
+            for (int j = 0; j < quiz.AnswerOptions.Count; j++)
+            {
+                Console.WriteLine($"{j + 1}: {quiz.AnswerOptions[j]}");
+            }
+        }
 
-        public void DisplayUserTestScore() { }
+        private int PromptUserToInputAnswer(Quiz quiz)
+        {
+            Console.Write("Enter the Correct Answer (" + string.Join("/", Enumerable.Range(1, quiz.AnswerOptions.Count)) + "): ");
+            return int.Parse(Console.ReadLine());
+        }
+
+        public void ValidateAndDisplayUserAnswer(Quiz quiz, int userAnswer)
+        {
+            if (userAnswer == quiz.CorrectAnswer)
+            {
+                Console.WriteLine("CORRECT!!!");
+                correct++;
+            }
+            else
+            {
+                Console.WriteLine("INCORRECT");
+                incorrect++;
+            }
+        }
 
         public void DisplayUserTestResult() { }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace QuizMaker
@@ -9,6 +10,7 @@ namespace QuizMaker
     {
         private List<Quiz> quizzes;
         private string path = @"../../../Quizlist.xml";
+        public Random random = new Random();
 
         public QuizMakerLogic()
         {
@@ -39,6 +41,11 @@ namespace QuizMaker
                     quizzes = reader.Deserialize(file) as List<Quiz>;
                 }
             }
+        }
+
+        public List<Quiz> RandomlySelectQuizQuestions()
+        {
+            return quizzes.OrderBy(x => random.Next()).Take(QuizMakerConstants.NUMBER_OF_QUESTIONS_PER_SESSION).ToList();
         }
     }
 }

@@ -60,4 +60,14 @@
     </AnswerOptions>
     <CorrectAnswer>3</CorrectAnswer>
   </Quiz>
+  <Quiz>
+    <QuestionNumber>7</QuestionNumber>
+    <Question>a subject that teach calculation of numbers id called?</Question>
+    <AnswerOptions>
+      <string>Maths</string>
+      <string>English</string>
+      <string>biology</string>
+    </AnswerOptions>
+    <CorrectAnswer>1</CorrectAnswer>
+  </Quiz>
 </ArrayOfQuiz>
