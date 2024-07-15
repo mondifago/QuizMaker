@@ -31,8 +31,7 @@ namespace QuizMaker
                                   "2. Admin View All Questions\n" +
                                   "3. User Login\n" +
                                   "4. View Answers to quiz\n" +
-                                  "5. User Score Records\n" +
-                                  "6. Exit program\n\n");
+                                  "5. Exit program\n\n");
                 Console.Write("Please choose the number of the page you want to visit... ");
 
                 int mode;
@@ -55,11 +54,7 @@ namespace QuizMaker
                             break;
 
                         case MenuOption.ViewAnswersToQuiz:
-                            // View answers to quiz logic here
-                            break;
-
-                        case MenuOption.UserScoreRecords:
-                            // User score records logic here
+                            DisplayUserTestResult();
                             break;
 
                         case MenuOption.ExitProgram:
@@ -73,7 +68,7 @@ namespace QuizMaker
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input. Please enter a number between 1 and 6.");
+                    Console.WriteLine("Invalid input. Please enter a number between 1 and 5.");
                 }
             }
         }
@@ -172,7 +167,8 @@ namespace QuizMaker
             quizMakerLogic.FetchInputtedQuestions();
             correct = 0;
             incorrect = 0;
-            
+            quizMakerLogic.userAnswerList.Clear();
+
             Console.Clear();
             DisplayQuizInstructions();
             Console.ReadKey();
@@ -184,6 +180,7 @@ namespace QuizMaker
             {
                 DisplayQuizQuestionsAndAnswerOptions(quiz);
                 int userAnswer = PromptUserToInputAnswer(quiz);
+                quizMakerLogic.AddUserAnswer(userAnswer);
                 ValidateAndDisplayUserAnswer(quiz, userAnswer);
                 Console.WriteLine("Press ENTER to continue to the next question...");
                 Console.ReadKey();

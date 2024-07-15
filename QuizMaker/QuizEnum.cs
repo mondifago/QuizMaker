@@ -7,7 +7,6 @@ namespace QuizMaker
         AdminViewAllQuestions,
         UserLogin,
         ViewAnswersToQuiz,
-        UserScoreRecords,
         ExitProgram
     }
 }

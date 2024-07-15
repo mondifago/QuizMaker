@@ -11,10 +11,12 @@ namespace QuizMaker
         private List<Quiz> quizzes;
         private string path = @"../../../Quizlist.xml";
         public Random random = new Random();
+        public List<int> userAnswerList;
 
         public QuizMakerLogic()
         {
             quizzes = new List<Quiz>();
+            userAnswerList = new List<int>();
         }
 
         public List<Quiz> GetQuizzes()
@@ -46,6 +48,11 @@ namespace QuizMaker
         public List<Quiz> RandomlySelectQuizQuestions()
         {
             return quizzes.OrderBy(x => random.Next()).Take(QuizMakerConstants.NUMBER_OF_QUESTIONS_PER_SESSION).ToList();
+        }
+
+        public void AddUserAnswer(int userAnswer)
+        {
+            userAnswerList.Add(userAnswer);
         }
     }
 }
