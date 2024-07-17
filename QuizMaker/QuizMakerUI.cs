@@ -7,17 +7,16 @@ namespace QuizMaker
 {
     public class QuizMakerUI
     {
-        private List<Quiz> quizzes;
+        private List<Quiz> selectedQuestions;
         private QuizMakerLogic quizMakerLogic;
         private bool exitProgram = false;
         public int correct;
         public int incorrect;
 
-        public QuizMakerUI(List<Quiz> quizzes, QuizMakerLogic quizMakerLogic)
+        public QuizMakerUI(QuizMakerLogic quizMakerLogic)
         {
-            this.quizzes = quizzes;
+            selectedQuestions = new List<Quiz>();
             this.quizMakerLogic = quizMakerLogic;
-                  
         }
 
         public void DisplayProgramMenu()
@@ -35,6 +34,7 @@ namespace QuizMaker
                 Console.Write("Please choose the number of the page you want to visit... ");
 
                 int mode;
+
                 if (int.TryParse(Console.ReadLine(), out mode) && Enum.IsDefined(typeof(MenuOption), mode))
                 {
                     MenuOption selectedOption = (MenuOption)mode;
@@ -81,23 +81,24 @@ namespace QuizMaker
             for (int i = 0; i < numberOfQuestions; i++)
             {
                 Console.WriteLine($"\nAdding Question {i + 1} of {numberOfQuestions}");
-                
+
                 Quiz quiz = new Quiz();
                 InputQuestionNumber(quiz);
                 InputQuizQuestion(quiz);
                 InputQuestionOptions(quiz);
                 InputQuestionCorrectAnswer(quiz);
-
-                quizzes.Add(quiz);
+                quizMakerLogic.quizzes.Add(quiz);
 
                 Console.WriteLine("\nQuiz Details:");
                 Console.WriteLine($"Question Number: {quiz.QuestionNumber}");
                 Console.WriteLine($"Question: {quiz.Question}");
                 Console.WriteLine("Options:");
+
                 for (int j = 0; j < quiz.AnswerOptions.Count; j++)
                 {
                     Console.WriteLine($"{j + 1}: {quiz.AnswerOptions[j]}");
                 }
+
                 Console.WriteLine($"Correct Answer: Option {quiz.CorrectAnswer}\n");
                 Console.WriteLine("Review the question and press any key to continue...");
                 Console.ReadKey();
@@ -107,7 +108,7 @@ namespace QuizMaker
 
             Console.WriteLine("All questions have been added. Press any key to return to the main menu...");
             Console.ReadKey();
-            DisplayProgramMenu(); 
+            DisplayProgramMenu();
         }
 
         public void InputQuestionNumber(Quiz quiz)
@@ -151,7 +152,7 @@ namespace QuizMaker
             Console.Clear();
             Console.WriteLine("********************* All Questions Inputted *********************\n");
 
-            foreach (var quiz in quizzes)
+            foreach (var quiz in quizMakerLogic.quizzes)
             {
                 DisplayQuizQuestionsAndAnswerOptions(quiz);
                 Console.WriteLine($"Correct Answer: Option {quiz.CorrectAnswer}\n");
@@ -159,7 +160,7 @@ namespace QuizMaker
             }
             Console.WriteLine("Press any key to return to the main menu...");
             Console.ReadKey();
-            DisplayProgramMenu(); 
+            DisplayProgramMenu();
         }
 
         public void DisplayUserTestQuestions()
@@ -174,7 +175,7 @@ namespace QuizMaker
             Console.ReadKey();
             Console.Clear();
 
-            var selectedQuestions = quizMakerLogic.RandomlySelectQuizQuestions();
+            selectedQuestions = quizMakerLogic.RandomlySelectQuizQuestions();
 
             foreach (var quiz in selectedQuestions)
             {
@@ -186,17 +187,16 @@ namespace QuizMaker
                 Console.ReadKey();
                 Console.Clear();
             }
-
             DisplayUserQuizScore();
             Console.WriteLine("Press any key to return to the main menu...");
             Console.ReadKey();
-            DisplayProgramMenu(); 
+            DisplayProgramMenu();
         }
 
         public void DisplayQuizInstructions()
         {
             Console.WriteLine("********************* Welcome To General IQ Quiz *********************\n");
-            Console.WriteLine("Quiz Instruction: This Quiz contains 5 Questions, you need to answer 4 correctly to pass.");
+            Console.WriteLine($"Quiz Instruction: This Quiz contains {QuizMakerConstants.NUMBER_OF_QUESTIONS_PER_SESSION} Questions, you need to answer {QuizMakerConstants.PASS_SCORE} correctly to pass.");
             Console.WriteLine("This is a multiple choice answer quiz, select the correct option number from the options\n");
             Console.WriteLine("When you are ready, Press ENTER to start.... ");
         }
@@ -251,31 +251,26 @@ namespace QuizMaker
             Console.Clear();
             Console.WriteLine("********************* User Quiz Answers *********************\n");
 
-            var selectedQuestions = quizMakerLogic.RandomlySelectQuizQuestions();
-
             for (int i = 0; i < selectedQuestions.Count; i++)
             {
-                var quiz = selectedQuestions[i];
+                var attemptedQuiz = selectedQuestions[i];
                 int userAnswer = quizMakerLogic.userAnswerList[i];
 
-                DisplayQuizQuestionsAndAnswerOptions(quiz);
-                Console.WriteLine($"Correct Answer: Option {quiz.CorrectAnswer}");
+                DisplayQuizQuestionsAndAnswerOptions(attemptedQuiz);
+                Console.WriteLine($"Correct Answer: Option {attemptedQuiz.CorrectAnswer}");
                 Console.WriteLine($"Your Answer: Option {userAnswer}\n");
                 Console.WriteLine("----------------------------------------------------------\n");
             }
             Console.WriteLine("Press any key to return to the main menu...");
             Console.ReadKey();
-            DisplayProgramMenu(); 
+            DisplayProgramMenu();
         }
-
 
         private void ExitProgram()
         {
             quizMakerLogic.StoreInputtedQuestions();
             Console.WriteLine("Quizzes have been saved. Exiting the program...");
-            exitProgram = true; 
+            exitProgram = true;
         }
     }
-
-    
 }

@@ -1,11 +1,11 @@
 ﻿using System;
 namespace QuizMaker
 {
-	public class Quiz
-	{
+    public class Quiz
+    {
         public int QuestionNumber { get; set; }
         public string Question { get; set; }
-        public List<string> AnswerOptions { get; set; } 
+        public List<string> AnswerOptions { get; set; }
         public int CorrectAnswer { get; set; }
 
         public void SetQuestionNumber(int number)
@@ -27,7 +27,6 @@ namespace QuizMaker
         {
             CorrectAnswer = correctAnswer;
         }
-        
+
     }
 }
-

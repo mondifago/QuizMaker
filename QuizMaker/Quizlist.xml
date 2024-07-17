@@ -70,4 +70,14 @@
     </AnswerOptions>
     <CorrectAnswer>1</CorrectAnswer>
   </Quiz>
+  <Quiz>
+    <QuestionNumber>8</QuestionNumber>
+    <Question>what is the color of the sky?</Question>
+    <AnswerOptions>
+      <string>red</string>
+      <string>blue</string>
+      <string>green</string>
+    </AnswerOptions>
+    <CorrectAnswer>2</CorrectAnswer>
+  </Quiz>
 </ArrayOfQuiz>

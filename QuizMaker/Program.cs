@@ -9,13 +9,12 @@ namespace QuizMaker
     {
         static void Main(string[] args)
         {
-            // Instantiate the logic class and load quizzes
+            // Instantiate the logic class
             QuizMakerLogic quizMakerLogic = new QuizMakerLogic();
             quizMakerLogic.FetchInputtedQuestions();
-            List<Quiz> quizList = quizMakerLogic.GetQuizzes();
 
             // Instantiate the UI class and display the menu
-            QuizMakerUI quizMakerUI = new QuizMakerUI(quizList, quizMakerLogic);
+            QuizMakerUI quizMakerUI = new QuizMakerUI(quizMakerLogic);
             quizMakerUI.DisplayProgramMenu();
 
             // Save quizzes back to XML file on exit

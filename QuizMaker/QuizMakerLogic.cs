@@ -8,7 +8,7 @@ namespace QuizMaker
 {
     public class QuizMakerLogic
     {
-        private List<Quiz> quizzes;
+        public List<Quiz> quizzes;
         private string path = @"../../../Quizlist.xml";
         public Random random = new Random();
         public List<int> userAnswerList;
