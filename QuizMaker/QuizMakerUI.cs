@@ -75,8 +75,8 @@ namespace QuizMaker
 
         public void AddMultipleQuestions()
         {
-            Console.Write("How many questions would you like to add? ");
-            int numberOfQuestions = int.Parse(Console.ReadLine());
+            Console.WriteLine($"\nTotal number of Questions stored already = {quizMakerLogic.quizzes.Count}");
+            int numberOfQuestions = PromptForValidNumber("How many questions would you like to add? \t");
 
             for (int i = 0; i < numberOfQuestions; i++)
             {
@@ -113,8 +113,8 @@ namespace QuizMaker
 
         public void InputQuestionNumber(Quiz quiz)
         {
-            Console.Write("Enter Question Number: ");
-            int questionNumber = int.Parse(Console.ReadLine());
+            Console.WriteLine($"You are expected to start from {quizMakerLogic.quizzes.Count + 1}");
+            int questionNumber = PromptForValidNumber("Enter Question Number: ");
             quiz.SetQuestionNumber(questionNumber);
         }
 
@@ -264,6 +264,22 @@ namespace QuizMaker
             Console.WriteLine("Press any key to return to the main menu...");
             Console.ReadKey();
             DisplayProgramMenu();
+        }
+
+        private int PromptForValidNumber(string promptMessage)
+        {
+            Console.Write(promptMessage);
+            string input = Console.ReadLine();
+            int validNumber;
+
+            while (!int.TryParse(input, out validNumber))
+            {
+                Console.WriteLine("\nInvalid input. Please enter a valid number.");
+                Console.Write(promptMessage);
+                input = Console.ReadLine();
+            }
+
+            return validNumber;
         }
 
         private void ExitProgram()
