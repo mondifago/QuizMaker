@@ -5,6 +5,7 @@ namespace QuizMaker
 	{
         public const int NUMBER_OF_QUESTIONS_PER_SESSION = 4;
         public const int PASS_SCORE = 3;
+        public const string PATH = @"../../../Quizlist.xml";
     }
 }
 

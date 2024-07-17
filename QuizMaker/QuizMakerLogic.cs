@@ -9,7 +9,6 @@ namespace QuizMaker
     public class QuizMakerLogic
     {
         public List<Quiz> quizzes;
-        private string path = @"../../../Quizlist.xml";
         public Random random = new Random();
         public List<int> userAnswerList;
 
@@ -27,7 +26,7 @@ namespace QuizMaker
         public void StoreInputtedQuestions()
         {
             XmlSerializer writer = new XmlSerializer(typeof(List<Quiz>));
-            using (FileStream file = File.Create(path))
+            using (FileStream file = File.Create(QuizMakerConstants.PATH))
             {
                 writer.Serialize(file, quizzes);
             }
@@ -35,10 +34,10 @@ namespace QuizMaker
 
         public void FetchInputtedQuestions()
         {
-            if (File.Exists(path))
+            if (File.Exists(QuizMakerConstants.PATH))
             {
                 XmlSerializer reader = new XmlSerializer(typeof(List<Quiz>));
-                using (FileStream file = File.OpenRead(path))
+                using (FileStream file = File.OpenRead(QuizMakerConstants.PATH))
                 {
                     quizzes = reader.Deserialize(file) as List<Quiz>;
                 }
