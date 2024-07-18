@@ -245,6 +245,16 @@ namespace QuizMaker
 
         public void DisplayUserTestResult()
         {
+            if (selectedQuestions.Count == 0)
+            {
+                Console.Clear();
+                Console.WriteLine("You Have To Take A Quiz First Buddy!\n\n");
+                Console.WriteLine("Press any key to return to the main menu...");
+                Console.ReadKey();
+                DisplayProgramMenu();
+                return;
+            }
+
             Console.Clear();
             Console.WriteLine("********************* User Quiz Answers *********************\n");
 
