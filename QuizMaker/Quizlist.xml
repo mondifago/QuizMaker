@@ -80,4 +80,24 @@
     </AnswerOptions>
     <CorrectAnswer>2</CorrectAnswer>
   </Quiz>
+  <Quiz>
+    <QuestionNumber>9</QuestionNumber>
+    <Question>what is the color of a plant leaf ?</Question>
+    <AnswerOptions>
+      <string>black</string>
+      <string>green</string>
+      <string>pink</string>
+    </AnswerOptions>
+    <CorrectAnswer>2</CorrectAnswer>
+  </Quiz>
+  <Quiz>
+    <QuestionNumber>10</QuestionNumber>
+    <Question>what do we sleep on? </Question>
+    <AnswerOptions>
+      <string>table</string>
+      <string>chair</string>
+      <string>bed</string>
+    </AnswerOptions>
+    <CorrectAnswer>3</CorrectAnswer>
+  </Quiz>
 </ArrayOfQuiz>

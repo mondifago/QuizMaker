@@ -127,8 +127,7 @@ namespace QuizMaker
 
         public void InputQuestionOptions(Quiz quiz)
         {
-            Console.Write("Enter the number of Options you want to input: ");
-            int numberOfOptions = int.Parse(Console.ReadLine());
+            int numberOfOptions = PromptForValidNumber("Enter the number of Options you want to input: ");
 
             for (int i = 0; i < numberOfOptions; i++)
             {
@@ -141,8 +140,7 @@ namespace QuizMaker
 
         public void InputQuestionCorrectAnswer(Quiz quiz)
         {
-            Console.Write("Enter the Correct Answer (" + string.Join("/", Enumerable.Range(1, quiz.AnswerOptions.Count)) + "): ");
-            int correctAnswer = int.Parse(Console.ReadLine());
+            int correctAnswer = PromptForValidNumberAndRange("Enter the Correct Answer (" + string.Join("/", Enumerable.Range(1, quiz.AnswerOptions.Count)) + "): ",1, quiz.AnswerOptions.Count);
             quiz.SetCorrectAnswer(correctAnswer);
         }
 
@@ -183,7 +181,7 @@ namespace QuizMaker
                 int userAnswer = PromptUserToInputAnswer(quiz);
                 quizMakerLogic.AddUserAnswer(userAnswer);
                 ValidateAndDisplayUserAnswer(quiz, userAnswer);
-                Console.WriteLine("Press ENTER to continue to the next question...");
+                Console.WriteLine("Press any key to continue to the next question...");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -198,7 +196,7 @@ namespace QuizMaker
             Console.WriteLine("********************* Welcome To General IQ Quiz *********************\n");
             Console.WriteLine($"Quiz Instruction: This Quiz contains {QuizMakerConstants.NUMBER_OF_QUESTIONS_PER_SESSION} Questions, you need to answer {QuizMakerConstants.PASS_SCORE} correctly to pass.");
             Console.WriteLine("This is a multiple choice answer quiz, select the correct option number from the options\n");
-            Console.WriteLine("When you are ready, Press ENTER to start.... ");
+            Console.WriteLine("When you are ready, Press any key to start.... ");
         }
 
         public void DisplayUserQuizScore()
@@ -228,8 +226,7 @@ namespace QuizMaker
 
         private int PromptUserToInputAnswer(Quiz quiz)
         {
-            Console.Write("Enter the Correct Answer (" + string.Join("/", Enumerable.Range(1, quiz.AnswerOptions.Count)) + "): ");
-            return int.Parse(Console.ReadLine());
+            return PromptForValidNumberAndRange("Enter the Correct Answer (" + string.Join("/", Enumerable.Range(1, quiz.AnswerOptions.Count)) + "): ",1, quiz.AnswerOptions.Count);
         }
 
         public void ValidateAndDisplayUserAnswer(Quiz quiz, int userAnswer)
@@ -275,6 +272,22 @@ namespace QuizMaker
             while (!int.TryParse(input, out validNumber))
             {
                 Console.WriteLine("\nInvalid input. Please enter a valid number.");
+                Console.Write(promptMessage);
+                input = Console.ReadLine();
+            }
+
+            return validNumber;
+        }
+
+        private int PromptForValidNumberAndRange(string promptMessage, int min, int max)
+        {
+            Console.Write(promptMessage);
+            string input = Console.ReadLine();
+            int validNumber;
+
+            while (!int.TryParse(input, out validNumber) || validNumber < min || validNumber > max)
+            {
+                Console.WriteLine($"\nInvalid input. Please enter a valid number between {min} and {max}.");
                 Console.Write(promptMessage);
                 input = Console.ReadLine();
             }
