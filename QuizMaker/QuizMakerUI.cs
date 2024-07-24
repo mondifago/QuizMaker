@@ -106,8 +106,8 @@ namespace QuizMaker
             }
             quizMakerLogic.StoreInputtedQuestions();
 
-            Console.WriteLine("All questions have been added. Press any key to return to the main menu...");
-            Console.ReadKey();
+            Console.WriteLine("All questions have been added.");
+            PromptReturnToMenu();
             DisplayProgramMenu();
         }
 
@@ -156,8 +156,7 @@ namespace QuizMaker
                 Console.WriteLine($"Correct Answer: Option {quiz.CorrectAnswer}\n");
                 Console.WriteLine("----------------------------------------------------------\n");
             }
-            Console.WriteLine("Press any key to return to the main menu...");
-            Console.ReadKey();
+            PromptReturnToMenu();
             DisplayProgramMenu();
         }
 
@@ -186,8 +185,7 @@ namespace QuizMaker
                 Console.Clear();
             }
             DisplayUserQuizScore();
-            Console.WriteLine("Press any key to return to the main menu...");
-            Console.ReadKey();
+            PromptReturnToMenu();
             DisplayProgramMenu();
         }
 
@@ -249,8 +247,7 @@ namespace QuizMaker
             {
                 Console.Clear();
                 Console.WriteLine("You Have To Take A Quiz First Buddy!\n\n");
-                Console.WriteLine("Press any key to return to the main menu...");
-                Console.ReadKey();
+                PromptReturnToMenu();
                 DisplayProgramMenu();
                 return;
             }
@@ -268,8 +265,7 @@ namespace QuizMaker
                 Console.WriteLine($"Your Answer: Option {userAnswer}\n");
                 Console.WriteLine("----------------------------------------------------------\n");
             }
-            Console.WriteLine("Press any key to return to the main menu...");
-            Console.ReadKey();
+            PromptReturnToMenu();
             DisplayProgramMenu();
         }
 
@@ -303,6 +299,12 @@ namespace QuizMaker
             }
 
             return validNumber;
+        }
+
+        public void PromptReturnToMenu()
+        {
+            Console.WriteLine("Press any key to return to the main menu...");
+            Console.ReadKey();
         }
 
         private void ExitProgram()

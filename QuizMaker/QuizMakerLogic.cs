@@ -13,7 +13,6 @@ namespace QuizMaker
         public List<int> userAnswerList;
         public XmlSerializer readWrite = new XmlSerializer(typeof(List<Quiz>));
         
-
         public QuizMakerLogic()
         {
             quizzes = new List<Quiz>();
