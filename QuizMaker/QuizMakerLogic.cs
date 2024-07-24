@@ -11,8 +11,8 @@ namespace QuizMaker
         public List<Quiz> quizzes;
         public Random random = new Random();
         public List<int> userAnswerList;
-        public XmlSerializer writer = new XmlSerializer(typeof(List<Quiz>));
-        public XmlSerializer reader = new XmlSerializer(typeof(List<Quiz>));
+        public XmlSerializer readWrite = new XmlSerializer(typeof(List<Quiz>));
+        
 
         public QuizMakerLogic()
         {
@@ -29,7 +29,7 @@ namespace QuizMaker
         { 
             using (FileStream file = File.Create(QuizMakerConstants.PATH))
             {
-                writer.Serialize(file, quizzes);
+                readWrite.Serialize(file, quizzes);
             }
         }
 
@@ -39,7 +39,7 @@ namespace QuizMaker
             {
                 using (FileStream file = File.OpenRead(QuizMakerConstants.PATH))
                 {
-                    quizzes = reader.Deserialize(file) as List<Quiz>;
+                    quizzes = readWrite.Deserialize(file) as List<Quiz>;
                 }
             }
         }
