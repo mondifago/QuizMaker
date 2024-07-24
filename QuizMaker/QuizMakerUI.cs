@@ -255,16 +255,25 @@ namespace QuizMaker
             Console.Clear();
             Console.WriteLine("********************* User Quiz Answers *********************\n");
 
+            Dictionary<Quiz, (int correctAnswer, int userAnswer)> questAnsMapping = new Dictionary<Quiz, (int correctAnswer, int userAnswer)>();
+
             for (int i = 0; i < selectedQuestions.Count; i++)
             {
                 var attemptedQuiz = selectedQuestions[i];
                 int userAnswer = quizMakerLogic.userAnswerList[i];
+                questAnsMapping[attemptedQuiz] = (attemptedQuiz.CorrectAnswer, userAnswer);
+            }
 
-                DisplayQuizQuestionsAndAnswerOptions(attemptedQuiz);
-                Console.WriteLine($"Correct Answer: Option {attemptedQuiz.CorrectAnswer}");
+            foreach (var entry in questAnsMapping)
+            {
+                var question = entry.Key;
+                var (correctAnswer, userAnswer) = entry.Value;
+                DisplayQuizQuestionsAndAnswerOptions(question);
+                Console.WriteLine($"Correct Answer: Option {correctAnswer}");
                 Console.WriteLine($"Your Answer: Option {userAnswer}\n");
                 Console.WriteLine("----------------------------------------------------------\n");
             }
+
             PromptReturnToMenu();
             DisplayProgramMenu();
         }
