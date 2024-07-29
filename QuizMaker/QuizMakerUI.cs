@@ -11,7 +11,6 @@ namespace QuizMaker
         private QuizMakerLogic quizMakerLogic;
         private bool exitProgram = false;
         public int correct;
-        public int incorrect;
 
         public QuizMakerUI(QuizMakerLogic quizMakerLogic)
         {
@@ -163,7 +162,6 @@ namespace QuizMaker
         {
             quizMakerLogic.FetchInputtedQuestions();
             correct = 0;
-            incorrect = 0;
             quizMakerLogic.userAnswerList.Clear();
 
             Console.Clear();
@@ -236,7 +234,6 @@ namespace QuizMaker
             else
             {
                 Console.WriteLine("INCORRECT");
-                incorrect++;
             }
         }
 
