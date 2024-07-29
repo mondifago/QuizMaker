@@ -120,8 +120,7 @@ namespace QuizMaker
 
         public void InputQuizQuestion(Quiz quiz)
         {
-            Console.Write("Enter the Question: ");
-            string question = Console.ReadLine();
+            string question = PromptForValidString("Enter the Question: ");
             quiz.SetQuestion(question);
         }
 
@@ -284,7 +283,7 @@ namespace QuizMaker
             string input = Console.ReadLine();
             int validNumber;
 
-            while (!int.TryParse(input, out validNumber))
+            while (!int.TryParse(input, out validNumber) || string.IsNullOrWhiteSpace(input))
             {
                 Console.WriteLine("\nInvalid input. Please enter a valid number.");
                 Console.Write(promptMessage);
@@ -300,7 +299,7 @@ namespace QuizMaker
             string input = Console.ReadLine();
             int validNumber;
 
-            while (!int.TryParse(input, out validNumber) || validNumber < min || validNumber > max)
+            while (!int.TryParse(input, out validNumber) || validNumber < min || validNumber > max || string.IsNullOrWhiteSpace(input))
             {
                 Console.WriteLine($"\nInvalid input. Please enter a valid number between {min} and {max}.");
                 Console.Write(promptMessage);
@@ -308,6 +307,20 @@ namespace QuizMaker
             }
 
             return validNumber;
+        }
+
+        private string PromptForValidString(string promptMessage)
+        {
+            Console.Write(promptMessage);
+            string input = Console.ReadLine();
+            
+            while (string.IsNullOrWhiteSpace(input))
+            {
+                Console.WriteLine("\nThis cannot be left empty. Please enter a valid question.");
+                Console.Write(promptMessage);
+                input = Console.ReadLine();
+            }
+            return input;
         }
 
         public void PromptReturnToMenu()
