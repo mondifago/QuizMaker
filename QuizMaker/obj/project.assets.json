@@ -8,25 +8,32 @@
     "net7.0": []
   },
   "packageFolders": {
-    "/Users/ugochukwumaduakor/.nuget/packages/": {}
+    "C:\\Users\\umadu\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/ugochukwumaduakor/Projects/QuizMaker/QuizMaker/QuizMaker.csproj",
+      "projectUniqueName": "C:\\Users\\umadu\\source\\repos\\mondifago\\QuizMaker\\QuizMaker\\QuizMaker.csproj",
       "projectName": "QuizMaker",
-      "projectPath": "/Users/ugochukwumaduakor/Projects/QuizMaker/QuizMaker/QuizMaker.csproj",
-      "packagesPath": "/Users/ugochukwumaduakor/.nuget/packages/",
-      "outputPath": "/Users/ugochukwumaduakor/Projects/QuizMaker/QuizMaker/obj/",
+      "projectPath": "C:\\Users\\umadu\\source\\repos\\mondifago\\QuizMaker\\QuizMaker\\QuizMaker.csproj",
+      "packagesPath": "C:\\Users\\umadu\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\umadu\\source\\repos\\mondifago\\QuizMaker\\QuizMaker\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/Users/ugochukwumaduakor/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\umadu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "/usr/local/share/dotnet/library-packs": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -39,7 +46,13 @@
         "warnAsError": [
           "NU1605"
         ]
-      }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net7.0": {
@@ -60,7 +73,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.317/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }
