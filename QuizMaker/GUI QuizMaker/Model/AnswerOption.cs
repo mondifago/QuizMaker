@@ -1,9 +1,8 @@
 ﻿namespace QuizMaker.GUI_QuizMaker.Model
 {
-    public class Result
+    public class AnswerOption
     {
         public Guid Id { get; set; } = Guid.NewGuid();
-        public int Score { get; set; }
-        public double time { get; set; }
+        public string Text { get; set; }
     }
 }

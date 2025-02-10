@@ -2,10 +2,9 @@
 {
     public class Quiz
     {
-        public int QuestionNumber { get; set; }
-        public string Question { get; set; }
-        public List<string> AnswerOptions { get; set; }
-        public int CorrectAns { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public string Title { get; set; }
+        public List<Question> Questions { get; set; } = new();
         public int TimeLimitSeconds { get; set; }
     }
 }
