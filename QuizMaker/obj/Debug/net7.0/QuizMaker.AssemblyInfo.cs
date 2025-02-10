@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QuizMaker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+87b69f7c044a691257c0c562954451da519751bc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+966701d66cb5146ac95d366422826ab05154c2dc")]
 [assembly: System.Reflection.AssemblyProductAttribute("QuizMaker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QuizMaker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

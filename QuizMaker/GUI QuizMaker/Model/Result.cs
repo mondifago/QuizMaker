@@ -1,4 +1,4 @@
-﻿namespace QuizMaker.Model
+﻿namespace QuizMaker.GUI_QuizMaker.Model
 {
     public class Result
     {
