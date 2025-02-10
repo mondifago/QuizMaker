@@ -1,6 +1,11 @@
-using QuizMakerApp.Components;
+﻿using QuizMakerApp.Components;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using QuizMakerApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<QuizMakerAppContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("QuizMakerAppContext") ?? throw new InvalidOperationException("Connection string 'QuizMakerAppContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
