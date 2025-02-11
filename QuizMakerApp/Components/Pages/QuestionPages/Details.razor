@@ -1,0 +1,48 @@
+﻿@page "/questions/details"
+@using Microsoft.EntityFrameworkCore
+@using QuizMakerApp.Models
+@inject IDbContextFactory<QuizMakerApp.Data.QuizMakerAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Question</h2>
+    <hr />
+    @if (question is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">Text</dt>
+            <dd class="col-sm-10">@question.Text</dd>
+            <dt class="col-sm-2">CorrectAnswerId</dt>
+            <dd class="col-sm-10">@question.CorrectAnswerId</dd>
+        </dl>
+        <div>
+            <a href="@($"/questions/edit?id={question.Id}")">Edit</a> |
+            <a href="@($"/questions")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Question? question;
+
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        question = await context.Question.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (question is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}
